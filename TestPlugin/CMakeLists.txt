@@ -21,3 +21,22 @@ set_target_properties(TestPlugin PROPERTIES
     OUTPUT_NAME "TestPlugin"
     WINDOWS_EXPORT_ALL_SYMBOLS ON
 )
+
+# 主程序的plugins目录路径
+set(MAIN_PROGRAM_PLUGINS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../fits_label_vulkan/build/Release/plugins")
+
+# 创建plugins目录（如果不存在）
+add_custom_command(
+    TARGET TestPlugin POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${MAIN_PROGRAM_PLUGINS_DIR}"
+    COMMENT "Creating plugins directory at ${MAIN_PROGRAM_PLUGINS_DIR}"
+)
+
+# 拷贝插件DLL到主程序的plugins目录
+add_custom_command(
+    TARGET TestPlugin POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:TestPlugin> "${MAIN_PROGRAM_PLUGINS_DIR}/$<TARGET_FILE_NAME:TestPlugin>"
+    COMMENT "Copying TestPlugin to ${MAIN_PROGRAM_PLUGINS_DIR}"
+)
+
+
