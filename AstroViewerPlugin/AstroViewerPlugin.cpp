@@ -10,8 +10,8 @@
 
 AstroViewerPlugin::AstroViewerPlugin() :
     m_context(nullptr),
-    m_maxPoints(10000),
-    m_brightnessThreshold(0.1f),
+    m_maxPoints(0),
+    m_brightnessThreshold(0.0f),
     m_zScale(0.05f),
     m_pointSize(5.0f),
     m_imageWidth(0),
